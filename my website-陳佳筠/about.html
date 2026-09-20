@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>講師介紹｜AI 輔助品牌網站與使用者體驗設計實戰班</title>
+
+
+
+  <style>
+
+    /* 全域 CSS 變數：延續暖陽舒適色系與排版規格 */
+
+    :root {
+
+      --bg-warm: #FAF8F5;
+
+      --bg-card: #FFFFFF;
+
+      --primary: #D97736;
+
+      --primary-hover: #BF5E22;
+
+      --primary-light: #FDF2E9;
+
+      --text-main: #2D3748;
+
+      --text-muted: #64748B;
+
+      --border-color: #E2E8F0;
+
+      --max-width: 1100px;
+
+    }
+
+
+
+    * {
+
+      box-sizing: border-box;
+
+      margin: 0;
+
+      padding: 0;
+
+    }
+
+
+
+    body {
+
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Noto Sans TC", sans-serif;
+
+      background-color: var(--bg-warm);
+
+      color: var(--text-main);
+
+      line-height: 1.6;
+
+      -webkit-font-smoothing: antialiased;
+
+    }
+
+
+
+    a {
+
+      color: inherit;
+
+      text-decoration: none;
+
+    }
+
+
+
+    .container {
+
+      width: 100%;
+
+      max-width: var(--max-width);
+
+      margin: 0 auto;
+
+      padding: 0 24px;
+
+    }
+
+
+
+    /* 導覽列 */
+
+    header {
+
+      background-color: rgba(255, 255, 255, 0.95);
+
+      backdrop-filter: blur(8px);
+
+      border-bottom: 1px solid var(--border-color);
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 100;
+
+    }
+
+
+
+    .nav-container {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      height: 70px;
+
+    }
+
+
+
+    .logo {
+
+      font-size: 1.15rem;
+
+      font-weight: 700;
+
+      color: var(--primary);
+
+      letter-spacing: -0.02em;
+
+    }
+
+
+
+    .nav-links {
+
+      display: flex;
+
+      gap: 20px;
+
+      list-style: none;
+
+    }
+
+
+
+    .nav-links a {
+
+      font-size: 0.95rem;
+
+      color: var(--text-main);
+
+      font-weight: 500;
+
+      transition: color 0.2s ease;
+
+    }
+
+
+
+    .nav-links a:hover,
+
+    .nav-links a.active {
+
+      color: var(--primary);
+
+    }
+
+
+
+    /* 內頁標題區塊 */
+
+    .page-header {
+
+      padding: 70px 0 40px;
+
+      text-align: center;
+
+    }
+
+
+
+    .kicker {
+
+      display: inline-block;
+
+      font-size: 0.88rem;
+
+      font-weight: 600;
+
+      color: var(--primary);
+
+      background-color: var(--primary-light);
+
+      padding: 6px 14px;
+
+      border-radius: 20px;
+
+      margin-bottom: 16px;
+
+      letter-spacing: 0.05em;
+
+    }
+
+
+
+    .page-title {
+
+      font-size: 2.1rem;
+
+      font-weight: 800;
+
+      line-height: 1.3;
+
+      margin-bottom: 14px;
+
+      color: #1E293B;
+
+    }
+
+
+
+    .page-subtitle {
+
+      font-size: 1.05rem;
+
+      color: var(--text-muted);
+
+      max-width: 680px;
+
+      margin: 0 auto;
+
+      line-height: 1.7;
+
+    }
+
+
+
+    /* 講師介紹主要區塊 */
+
+    .about-section {
+
+      padding: 40px 0 70px;
+
+    }
+
+
+
+    .about-layout {
+
+      max-width: 900px;
+
+      margin: 0 auto;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 36px;
+
+    }
+
+
+
+    /* 核心講師團隊卡片 */
+
+    .profile-card {
+
+      background-color: var(--bg-card);
+
+      border: 1px solid var(--border-color);
+
+      border-radius: 14px;
+
+      padding: 36px 32px;
+
+      display: grid;
+
+      grid-template-columns: 240px 1fr;
+
+      gap: 32px;
+
+      align-items: center;
+
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+
+    }
+
+
+
+    .profile-img-wrapper {
+
+      width: 100%;
+
+      height: 240px;
+
+      border-radius: 12px;
+
+      overflow: hidden;
+
+      background-color: #EDF2F7;
+
+    }
+
+
+
+    .profile-img-wrapper img {
+
+      width: 100%;
+
+      height: 100%;
+
+      object-fit: cover;
+
+      display: block;
+
+    }
+
+
+
+    .profile-info-title {
+
+      font-size: 0.88rem;
+
+      font-weight: 700;
+
+      color: var(--primary);
+
+      margin-bottom: 6px;
+
+      letter-spacing: 0.04em;
+
+    }
+
+
+
+    .profile-name {
+
+      font-size: 1.5rem;
+
+      font-weight: 800;
+
+      color: #1E293B;
+
+      margin-bottom: 12px;
+
+    }
+
+
+
+    .profile-bio {
+
+      font-size: 0.96rem;
+
+      color: var(--text-muted);
+
+      line-height: 1.7;
+
+      margin-bottom: 20px;
+
+    }
+
+
+
+    .profile-tags {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+    }
+
+
+
+    .profile-tag-item {
+
+      font-size: 0.82rem;
+
+      background-color: var(--primary-light);
+
+      color: var(--primary);
+
+      padding: 4px 10px;
+
+      border-radius: 6px;
+
+      font-weight: 600;
+
+    }
+
+
+
+    /* 教學理念卡片網格 */
+
+    .philosophy-grid {
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+      gap: 24px;
+
+    }
+
+
+
+    .philosophy-card {
+
+      background-color: var(--bg-card);
+
+      border: 1px solid var(--border-color);
+
+      border-radius: 12px;
+
+      padding: 26px 24px;
+
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    }
+
+
+
+    .philosophy-card:hover {
+
+      transform: translateY(-3px);
+
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+
+    }
+
+
+
+    .philosophy-badge {
+
+      font-size: 0.85rem;
+
+      font-weight: 700;
+
+      color: var(--primary);
+
+      margin-bottom: 8px;
+
+    }
+
+
+
+    .philosophy-title {
+
+      font-size: 1.15rem;
+
+      font-weight: 700;
+
+      color: #1E293B;
+
+      margin-bottom: 10px;
+
+    }
+
+
+
+    .philosophy-desc {
+
+      font-size: 0.92rem;
+
+      color: var(--text-muted);
+
+      line-height: 1.65;
+
+    }
+
+
+
+    /* 成果引導區塊 */
+
+    .cta-box {
+
+      margin-top: 20px;
+
+      background: linear-gradient(135deg, #FFFDFB 0%, #FDF4EB 100%);
+
+      border: 1px solid #FBD38D;
+
+      border-radius: 14px;
+
+      padding: 36px 32px;
+
+      text-align: center;
+
+    }
+
+
+
+    .cta-box-title {
+
+      font-size: 1.35rem;
+
+      font-weight: 700;
+
+      color: #7B341E;
+
+      margin-bottom: 10px;
+
+    }
+
+
+
+    .cta-box-desc {
+
+      font-size: 0.98rem;
+
+      color: #744210;
+
+      margin-bottom: 24px;
+
+      line-height: 1.6;
+
+      max-width: 580px;
+
+      margin-left: auto;
+
+      margin-right: auto;
+
+    }
+
+
+
+    .cta-btn {
+
+      display: inline-block;
+
+      background-color: var(--primary);
+
+      color: #FFFFFF;
+
+      font-size: 1rem;
+
+      font-weight: 600;
+
+      padding: 12px 28px;
+
+      border-radius: 8px;
+
+      transition: background-color 0.2s ease, transform 0.2s ease;
+
+      box-shadow: 0 4px 12px rgba(217, 119, 54, 0.25);
+
+    }
+
+
+
+    .cta-btn:hover {
+
+      background-color: var(--primary-hover);
+
+      transform: translateY(-2px);
+
+    }
+
+
+
+    /* 頁尾 */
+
+    footer {
+
+      background-color: #FFFFFF;
+
+      border-top: 1px solid var(--border-color);
+
+      padding: 28px 0;
+
+      text-align: center;
+
+      font-size: 0.88rem;
+
+      color: var(--text-muted);
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .profile-card {
+
+        grid-template-columns: 1fr;
+
+        padding: 24px 20px;
+
+        gap: 20px;
+
+      }
+
+      .profile-img-wrapper {
+
+        height: 200px;
+
+      }
+
+      .page-title {
+
+        font-size: 1.7rem;
+
+      }
+
+      .nav-links {
+
+        gap: 12px;
+
+      }
+
+      .nav-links a {
+
+        font-size: 0.85rem;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+
+  <!-- 導覽列 -->
+
+  <header>
+
+    <div class="container nav-container">
+
+      <a href="index.html" class="logo">AI 網頁實戰班</a>
+
+      <nav>
+
+        <ul class="nav-links">
+
+          <li><a href="index.html">網站首頁</a></li>
+
+          <li><a href="curriculum.html">課程大綱</a></li>
+
+          <li><a href="showcase.html">成果展示</a></li>
+
+          <li><a href="about.html" class="active">講師介紹</a></li>
+
+          <li><a href="contact.html">預約諮詢</a></li>
+
+        </ul>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+
+  <main>
+
+    <!-- 頁面標題區塊 -->
+
+    <section class="page-header">
+
+      <div class="container">
+
+        <span class="kicker">專業與陪伴引導</span>
+
+        <h1 class="page-title">教學團隊與理念</h1>
+
+        <p class="page-subtitle">
+
+          我們致力於讓技術不再難懂，透過步驟拆解與耐心引導，陪伴每位初學者在動手中跨越程式門檻。
+
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- 講師與理念內容區塊 -->
+
+    <section class="about-section">
+
+      <div class="container">
+
+        <div class="about-layout">
+
+
+
+          <!-- 講師基本檔案卡片 -->
+
+          <article class="profile-card">
+
+            <div class="profile-img-wrapper">
+
+              <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80" alt="實戰班教學團隊工作空間" loading="lazy" />
+
+            </div>
+
+            <div>
+
+              <div class="profile-info-title">實戰班主講與教練團隊</div>
+
+              <h2 class="profile-name">品牌體驗與網頁實戰小組</h2>
+
+              <p class="profile-bio">
+
+                團隊成員涵蓋使用者體驗設計、前端頁面架構與 AI 工具應用實務經驗。我們長期投入個人品牌與小型專案的數位形象規劃，深知初學者在接觸程式時常面臨的焦慮與卡點，因此課程設計始終以「講人話、動手做、能落地」為核心。
+
+              </p>
+
+              <div class="profile-tags">
+
+                <span class="profile-tag-item">UX 需求拆解</span>
+
+                <span class="profile-tag-item">結構化網頁排版</span>
+
+                <span class="profile-tag-item">Gemini 提示詞調校</span>
+
+                <span class="profile-tag-item">初學者陪伴教學</span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+
+          <!-- 三大教學理念 -->
+
+          <div class="philosophy-grid">
+
+            <article class="philosophy-card">
+
+              <div class="philosophy-badge">原則 01</div>
+
+              <h3 class="philosophy-title">不背語法，先理清邏輯</h3>
+
+              <p class="philosophy-desc">
+
+                初學者不需要死背成千上萬的標籤語法，只要先理解骨架排列邏輯，就能快速看懂網頁結構，大幅降低學習恐懼。
+
+              </p>
+
+            </article>
+
+
+
+            <article class="philosophy-card">
+
+              <div class="philosophy-badge">原則 02</div>
+
+              <h3 class="philosophy-title">把 AI 當作隨身助教</h3>
+
+              <p class="philosophy-desc">
+
+                不盲目複製貼上，而是教你如何用清楚的文字與 Gemini 對話，讓 AI 成為有效的分擔工具，協助你修正與除錯。
+
+              </p>
+
+            </article>
+
+
+
+            <article class="philosophy-card">
+
+              <div class="philosophy-badge">原則 03</div>
+
+              <h3 class="philosophy-title">做自己能掌控的網頁</h3>
+
+              <p class="philosophy-desc">
+
+                不追求過度複雜的商業架構，專注於完成一份乾淨、穩定且往後能自行隨時微調圖文資料的展示頁面。
+
+              </p>
+
+            </article>
+
+          </div>
+
+
+
+          <!-- 諮詢引導區塊 -->
+
+          <div class="cta-box">
+
+            <h2 class="cta-box-title">想聊聊你的學習目標或想法嗎？</h2>
+
+            <p class="cta-box-desc">
+
+              不論你目前是否有品牌想法，或單純想評估自己的背景是否適合，歡迎隨時與我們預約課前諮詢。
+
+            </p>
+
+            <a href="contact.html" class="cta-btn">立即預約諮詢</a>
+
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- 頁尾 -->
+
+  <footer>
+
+    <div class="container">
+
+      <p>© AI 輔助品牌網站與使用者體驗設計實戰班. All rights reserved.</p>
+
+    </div>
+
+  </footer>
+
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>課程大綱｜AI 輔助品牌網站與使用者體驗設計實戰班</title>
+  
+  <style>
+    /* 全域 CSS 變數：延續首頁的暖陽舒適色系與排版規格 */
+    :root {
+      --bg-warm: #FAF8F5;
+      --bg-card: #FFFFFF;
+      --primary: #D97736;
+      --primary-hover: #BF5E22;
+      --primary-light: #FDF2E9;
+      --text-main: #2D3748;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Noto Sans TC", sans-serif;
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 導覽列（與首頁樣式完全一致） */
+    header {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
+
+    /* 內頁標題區塊 */
+    .page-header {
+      padding: 70px 0 40px;
+      text-align: center;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    .page-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 14px;
+      color: #1E293B;
+    }
+
+    .page-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* 課程規劃總覽與大綱列表 */
+    .curriculum-section {
+      padding: 40px 0 70px;
+    }
+
+    .curriculum-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* 週次大綱卡片 */
+    .module-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px 30px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .module-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .module-tag {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+
+    .module-badge {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background-color: #F1F5F9;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .module-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 10px;
+    }
+
+    .module-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .module-details {
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+    }
+
+    .details-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 10px;
+    }
+
+    .details-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .details-points li {
+      font-size: 0.92rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .details-points li::before {
+      content: "•";
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    /* 成果引導區塊 */
+    .outcome-box {
+      margin-top: 48px;
+      background: linear-gradient(135deg, #FFFDFB 0%, #FDF4EB 100%);
+      border: 1px solid #FBD38D;
+      border-radius: 14px;
+      padding: 36px 32px;
+      text-align: center;
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .outcome-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #7B341E;
+      margin-bottom: 10px;
+    }
+
+    .outcome-desc {
+      font-size: 0.98rem;
+      color: #744210;
+      margin-bottom: 24px;
+      line-height: 1.6;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: #FFFFFF;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(217, 119, 54, 0.25);
+    }
+
+    .cta-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    /* 頁尾 */
+    footer {
+      background-color: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 28px 0;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 1.7rem;
+      }
+      .nav-links {
+        gap: 12px;
+      }
+      .nav-links a {
+        font-size: 0.85rem;
+      }
+      .module-card {
+        padding: 22px 20px;
+      }
+      .module-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 導覽列：包含首頁與規劃中內頁連結 -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">AI 網頁實戰班</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">網站首頁</a></li>
+          <li><a href="curriculum.html" class="active">課程大綱</a></li>
+          <li><a href="showcase.html">成果展示</a></li>
+          <li><a href="contact.html">預約諮詢</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 頁面標題區塊 -->
+    <section class="page-header">
+      <div class="container">
+        <span class="kicker">完整學習路徑</span>
+        <h1 class="page-title">課程大綱與週次進度</h1>
+        <p class="page-subtitle">
+          專為零基礎設計的階段式引導，結合體驗需求規劃、基礎網頁架構與 Gemini 實務協作，陪伴你親手完成專屬的品牌展示頁面。
+        </p>
+      </div>
+    </section>
+
+    <!-- 週次模組進度清單 -->
+    <section class="curriculum-section">
+      <div class="container">
+        <div class="curriculum-list">
+
+          <!-- 第 1 週 -->
+          <article class="module-card">
+            <div class="module-header">
+              <span class="module-tag">Week 01</span>
+              <span class="module-badge">核心主題：需求整理與版面規劃</span>
+            </div>
+            <h2 class="module-title">拆解品牌資訊與使用者體驗流程</h2>
+            <p class="module-desc">
+              學習站在訪客角度梳理資訊優先級，透過線框圖（Wireframe）整理出清楚的首頁動線，並建立對網頁骨架的基本認知。
+            </p>
+            <div class="module-details">
+              <div class="details-title">重點學習項目</div>
+              <ul class="details-points">
+                <li>目標客群需求梳理與品牌核心訊息定位</li>
+                <li>Hero 主視覺、特色區塊與 FAQ 內容層次規劃</li>
+                <li>使用文字線框圖繪製清楚的頁面架構雛形</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 第 2 週 -->
+          <article class="module-card">
+            <div class="module-header">
+              <span class="module-tag">Week 02</span>
+              <span class="module-badge">核心主題：基礎網頁語法實作</span>
+            </div>
+            <h2 class="module-title">看懂 HTML 架構與 CSS 樣式微調</h2>
+            <p class="module-desc">
+              不要求死記語法，而是學會看懂網頁骨架標籤與樣式屬性，能精準修改顏色、留白間距與文字層次。
+            </p>
+            <div class="module-details">
+              <div class="details-title">重點學習項目</div>
+              <ul class="details-points">
+                <li>語意化標籤（header、main、section、footer）基礎邏輯</li>
+                <li>CSS 溫暖色調設定、字級行高與邊界間距排版</li>
+                <li>Grid 與 Flexbox 基礎排版概念與手機版適配入門</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 第 3 週 -->
+          <article class="module-card">
+            <div class="module-header">
+              <span class="module-tag">Week 03</span>
+              <span class="module-badge">核心主題：資料整理與動態互動</span>
+            </div>
+            <h2 class="module-title">認識 JSON 結構與 JavaScript 資料渲染</h2>
+            <p class="module-desc">
+              學會將網站文案與內容獨立成乾淨的 JSON 檔案，並透過簡單的 JavaScript 機制將資料自動顯示在網頁畫面上。
+            </p>
+            <div class="module-details">
+              <div class="details-title">重點學習項目</div>
+              <ul class="details-points">
+                <li>物件與陣列的基本概念：拆解 website-content.json</li>
+                <li>原生 fetch 讀取本地資料的基本流程與除錯注意事項</li>
+                <li>手風琴折疊常見問題（details / summary）互動實作</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 第 4 週 -->
+          <article class="module-card">
+            <div class="module-header">
+              <span class="module-tag">Week 04</span>
+              <span class="module-badge">核心主題：AI 協作與網頁發佈</span>
+            </div>
+            <h2 class="module-title">Gemini 提問協作、問題排查與成果整合</h2>
+            <p class="module-desc">
+              掌握向 AI 提出精確提示詞的對話方法，借助 Gemini 協助修正跑版、擴充內頁內容，並整合出完整的品牌展示網站。
+            </p>
+            <div class="module-details">
+              <div class="details-title">重點學習項目</div>
+              <ul class="details-points">
+                <li>如何向 Gemini 具體描述版面調整與程式需求</li>
+                <li>利用瀏覽器開發者工具找出樣式錯誤並請 AI 協查</li>
+                <li>整合各分頁連結、測試聯絡信箱按鈕並確認最終呈現</li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- 成果轉化與諮詢區塊 -->
+        <div class="outcome-box">
+          <h2 class="outcome-title">準備好親自動手做出你的品牌網頁了嗎？</h2>
+          <p class="outcome-desc">
+            每週均搭配具體實作習作，不需任何程式底子，跟著步驟就能循序漸進看到自己的網頁成形。
+          </p>
+          <a href="contact.html" class="cta-btn">預約課前諮詢</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 頁尾 -->
+  <footer>
+    <div class="container">
+      <p>© AI 輔助品牌網站與使用者體驗設計實戰班. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

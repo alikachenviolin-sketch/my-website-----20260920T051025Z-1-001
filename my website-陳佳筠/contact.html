@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>預約諮詢｜AI 輔助品牌網站與使用者體驗設計實戰班</title>
+
+  <style>
+    /* 全域 CSS 變數：延續首頁的暖陽舒適色系與排版規格 */
+    :root {
+      --bg-warm: #FAF8F5;
+      --bg-card: #FFFFFF;
+      --primary: #D97736;
+      --primary-hover: #BF5E22;
+      --primary-light: #FDF2E9;
+      --text-main: #2D3748;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Noto Sans TC", sans-serif;
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 導覽列（與首頁完全一致） */
+    header {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
+
+    /* 內頁標題區塊 */
+    .page-header {
+      padding: 70px 0 40px;
+      text-align: center;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    .page-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 14px;
+      color: #1E293B;
+    }
+
+    .page-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* 諮詢區塊雙欄佈局 */
+    .contact-main-section {
+      padding: 40px 0 80px;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 36px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* 左側：聯絡說明與管道卡片 */
+    .contact-info-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px 28px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .info-group-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 8px;
+    }
+
+    .info-group-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .channel-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .channel-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .channel-icon {
+      width: 22px;
+      height: 22px;
+      stroke: var(--primary);
+      stroke-width: 2;
+      fill: none;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .channel-content-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 2px;
+    }
+
+    .channel-content-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      word-break: break-all;
+    }
+
+    .channel-content-text a {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .channel-content-text a:hover {
+      color: var(--primary-hover);
+    }
+
+    .friendly-notice {
+      background-color: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      padding: 14px 16px;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      color: #744210;
+      line-height: 1.6;
+    }
+
+    /* 右側：表單卡片 */
+    .contact-form-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px 30px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .form-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 8px;
+    }
+
+    .form-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    .form-label .required {
+      color: #E53E3E;
+      margin-left: 4px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background-color: #FFFFFF;
+      font-family: inherit;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(217, 119, 54, 0.15);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.6;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background-color: var(--primary);
+      color: #FFFFFF;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(217, 119, 54, 0.25);
+    }
+
+    .submit-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    /* 送出成功回饋訊息 */
+    .form-feedback {
+      display: none;
+      background-color: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      color: #166534;
+      padding: 14px 16px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      margin-top: 16px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* 頁尾 */
+    footer {
+      background-color: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 28px 0;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 840px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+      .page-title {
+        font-size: 1.7rem;
+      }
+      .nav-links {
+        gap: 12px;
+      }
+      .nav-links a {
+        font-size: 0.85rem;
+      }
+      .contact-form-card,
+      .contact-info-card {
+        padding: 24px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 導覽列 -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">AI 網頁實戰班</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">網站首頁</a></li>
+          <li><a href="curriculum.html">課程大綱</a></li>
+          <li><a href="showcase.html">成果展示</a></li>
+          <li><a href="contact.html" class="active">預約諮詢</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 頁面標題區塊 -->
+    <section class="page-header">
+      <div class="container">
+        <span class="kicker">課前交流與諮詢</span>
+        <h1 class="page-title">預約諮詢與聯繫團隊</h1>
+        <p class="page-subtitle">
+          對課程難度、電腦設備或學習方式有任何疑問嗎？歡迎透過下方表單或直接寄信，我們會在 1 到 2 個工作天內回覆你。
+        </p>
+      </div>
+    </section>
+
+    <!-- 諮詢內容區塊 -->
+    <section class="contact-main-section">
+      <div class="container">
+        <div class="contact-layout">
+
+          <!-- 左側：直接聯繫方式與友善提醒 -->
+          <article class="contact-info-card">
+            <div>
+              <h2 class="info-group-title">專人諮詢管道</h2>
+              <p class="info-group-desc">
+                若你偏好直接聯繫，也可以透過下列方式將你的需求或問題寄給教學團隊。
+              </p>
+            </div>
+
+            <ul class="channel-list">
+              <li class="channel-item">
+                <svg class="channel-icon" viewBox="0 0 24 24">
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <path d="M22 6L12 13L2 6"></path>
+                </svg>
+                <div>
+                  <div class="channel-content-title">電子信箱</div>
+                  <div class="channel-content-text">
+                    <a href="mailto:service@example.com?subject=諮詢「AI 輔助品牌網站與使用者體驗設計實戰班」">service@example.com</a>
+                  </div>
+                </div>
+              </li>
+              <li class="channel-item">
+                <svg class="channel-icon" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <div>
+                  <div class="channel-content-title">回覆時間</div>
+                  <div class="channel-content-text">週一至週五 10:00 - 18:00（國定假日除外）</div>
+                </div>
+              </li>
+              <li class="channel-item">
+                <svg class="channel-icon" viewBox="0 0 24 24">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+                <div>
+                  <div class="channel-content-title">適合諮詢的問題</div>
+                  <div class="channel-content-text">學習進度評估、非技術背景準備、品牌網站需求評估</div>
+                </div>
+              </li>
+            </ul>
+
+            <div class="friendly-notice">
+              💡 <strong>初學者友善提示</strong>：不需要具備任何程式背景，只要帶著你想要呈現的品牌或作品想法，我們就能協助評估這門課是否符合你的目標。
+            </div>
+          </article>
+
+          <!-- 右側：諮詢表單 -->
+          <article class="contact-form-card">
+            <h2 class="form-title">線上預約諮詢表單</h2>
+            <p class="form-subtitle">請留下你的聯絡方式與想了解的問題，我們會盡快與你聯繫。</p>
+
+            <form id="consultForm" onsubmit="handleFormSubmit(event)">
+              <div class="form-group">
+                <label for="userName" class="form-label">你的姓名或暱稱<span class="required">*</span></label>
+                <input type="text" id="userName" class="form-input" placeholder="例如：林小明" required />
+              </div>
+
+              <div class="form-group">
+                <label for="userEmail" class="form-label">電子信箱<span class="required">*</span></label>
+                <input type="email" id="userEmail" class="form-input" placeholder="example@email.com" required />
+              </div>
+
+              <div class="form-group">
+                <label for="currentBackground" class="form-label">目前的背景或經驗</label>
+                <select id="currentBackground" class="form-select">
+                  <option value="zero">完全零程式基礎（初學者）</option>
+                  <option value="creator">個人創作者 / 自由接案者</option>
+                  <option value="brand">小型品牌主 / 自營店家</option>
+                  <option value="other">其他背景</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="userMessage" class="form-label">你想諮詢的事項或期望做出的網站型態<span class="required">*</span></label>
+                <textarea id="userMessage" class="form-textarea" placeholder="例如：想為自己的手作工作室建立單頁形象站，想確認是否適合這堂課..." required></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn" id="submitBtn">送出諮詢需求</button>
+
+              <div class="form-feedback" id="formFeedback">
+                ✓ 諮詢需求已成功記錄！我們已收到你的資訊，將於 1 到 2 個工作天內透過 Email 與你聯繫。
+              </div>
+            </form>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 頁尾 -->
+  <footer>
+    <div class="container">
+      <p>© AI 輔助品牌網站與使用者體驗設計實戰班. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- 輕量純前端表單互動 JavaScript -->
+  <script>
+    function handleFormSubmit(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("userName").value.trim();
+      const email = document.getElementById("userEmail").value.trim();
+      const background = document.getElementById("currentBackground").value;
+      const message = document.getElementById("userMessage").value.trim();
+
+      if (!name || !email || !message) {
+        alert("請確認所有必填欄位皆已填寫完整。");
+        return;
+      }
+
+      // 模擬前端送出回饋
+      const submitBtn = document.getElementById("submitBtn");
+      const feedback = document.getElementById("formFeedback");
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "傳送中...";
+
+      setTimeout(() => {
+        submitBtn.style.display = "none";
+        feedback.style.display = "block";
+        document.getElementById("consultForm").reset();
+      }, 600);
+    }
+  </script>
+</body>
+</html>

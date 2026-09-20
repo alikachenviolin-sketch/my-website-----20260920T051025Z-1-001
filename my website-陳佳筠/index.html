@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 輔助品牌網站與使用者體驗設計實戰班</title>
+  
+  <style>
+    /* 全域 CSS 變數：定義溫暖陽光色系與基本排版規格 */
+    :root {
+      --bg-warm: #FAF8F5;          /* 網站背景米白色 */
+      --bg-card: #FFFFFF;          /* 卡片背景純白色 */
+      --primary: #D97736;          /* 主題暖橘色（按鈕、強調文字） */
+      --primary-hover: #BF5E22;    /* 主題橘懸停深色 */
+      --primary-light: #FDF2E9;    /* 淺橘色（標籤背襯、按鈕懸停） */
+      --text-main: #2D3748;        /* 內文主要深灰文字 */
+      --text-muted: #64748B;       /* 次要灰色文字（說明、副標） */
+      --border-color: #E2E8F0;     /* 通用邊框灰色 */
+      --max-width: 1100px;         /* 頁面內容最大寬度 */
+    }
+
+    /* 基礎重設 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Noto Sans TC", sans-serif;
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 導覽列 */
+    header {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* 首頁主視覺（Hero 區塊） */
+    .hero-section {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      color: #1E293B;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: #FFFFFF;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(217, 119, 54, 0.25);
+    }
+
+    .cta-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .section-title {
+      font-size: 1.65rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #1E293B;
+    }
+
+    /* 課程特色卡片區塊 */
+    .features-section {
+      padding: 60px 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .feature-card {
+      background-color: var(--bg-card);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .feature-img-wrapper {
+      width: 100%;
+      height: 190px;
+      background-color: #EDF2F7;
+      overflow: hidden;
+    }
+
+    .feature-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .feature-content {
+      padding: 24px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #1E293B;
+    }
+
+    .feature-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* FAQ 常見問題區塊（手風琴收合） */
+    .faq-section {
+      padding: 60px 0;
+    }
+
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faq-item {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: border-color 0.2s ease;
+    }
+
+    .faq-item[open] {
+      border-color: #FBD38D;
+    }
+
+    .faq-question-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1E293B;
+      cursor: pointer;
+      user-select: none;
+      list-style: none;
+      transition: background-color 0.15s ease;
+    }
+
+    .faq-question-btn::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-question-btn:hover {
+      background-color: #FDFBF8;
+    }
+
+    .faq-question-text {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .faq-badge {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .faq-chevron {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--text-muted);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-item[open] .faq-chevron {
+      transform: rotate(180deg);
+      stroke: var(--primary);
+    }
+
+    .faq-answer-box {
+      padding: 0 24px 22px 52px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* 聯絡引導區塊 */
+    .contact-section {
+      padding: 60px 0 80px;
+    }
+
+    .contact-box {
+      max-width: 760px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #FFFDFB 0%, #FDF4EB 100%);
+      border: 1px solid #FBD38D;
+      border-radius: 14px;
+      padding: 36px 32px;
+      text-align: center;
+    }
+
+    .contact-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #7B341E;
+    }
+
+    .contact-desc {
+      font-size: 0.98rem;
+      color: #744210;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .contact-action-btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 6px;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .contact-action-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .contact-email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #FFFFFF;
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 9px 22px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .contact-email-btn:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-1px);
+    }
+
+    .email-icon {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* 頁尾 */
+    footer {
+      background-color: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 28px 0;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .state-msg {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 1.75rem;
+      }
+      .nav-links {
+        gap: 12px;
+      }
+      .nav-links a {
+        font-size: 0.85rem;
+      }
+      .faq-answer-box {
+        padding: 0 20px 18px 20px;
+      }
+      .contact-buttons {
+        flex-direction: column;
+      }
+      .contact-action-btn,
+      .contact-email-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. 導覽列 -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">AI 網頁實戰班</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html#features">課程特色</a></li>
+          <li><a href="index.html#faq">常見問題</a></li>
+          <li><a href="curriculum.html">課程大綱</a></li>
+          <li><a href="showcase.html">成果展示</a></li>
+          <li><a href="about.html">講師介紹</a></li>
+          <li><a href="reviews.html">學員心得</a></li>
+          <li><a href="contact.html">預約諮詢</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 2. 主視覺（Hero） -->
+    <section class="hero-section">
+      <div class="container">
+        <span class="kicker" id="hero-kicker">載入中...</span>
+        <h1 class="hero-title" id="hero-title"></h1>
+        <p class="hero-subtitle" id="hero-subtitle"></p>
+        <a href="#features" class="cta-btn" id="hero-cta">查看課程內容</a>
+      </div>
+    </section>
+
+    <!-- 3. 特色卡片 -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <h2 class="section-title" id="features-title">課程核心特色</h2>
+        <div class="features-grid" id="features-grid">
+          <p class="state-msg">正在載入特色內容...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 常見問題（FAQ） -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <h2 class="section-title" id="faq-title">常見問題</h2>
+        <div class="faq-list" id="faq-list">
+          <p class="state-msg">正在載入常見問題...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 聯絡區塊 -->
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-box">
+          <h2 class="contact-title" id="contact-title">聯絡我們</h2>
+          <p class="contact-desc" id="contact-desc"></p>
+          <div class="contact-buttons">
+            <a href="contact.html" class="contact-action-btn">前往線上預約諮詢</a>
+            <a href="mailto:service@example.com?subject=諮詢「AI 輔助品牌網站與使用者體驗設計實戰班」" class="contact-email-btn" id="contact-email-link">
+              <svg class="email-icon" viewBox="0 0 24 24">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="M22 6L12 13L2 6"></path>
+              </svg>
+              <span>發送 Email 諮詢</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 6. 頁尾 -->
+  <footer>
+    <div class="container">
+      <p id="footer-text">© AI 輔助品牌網站與使用者體驗設計實戰班. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- 動態腳本 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("data/website-content.json")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP 錯誤：${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // 渲染 Hero
+          if (data.hero) {
+            document.getElementById("hero-kicker").textContent = data.hero.kicker || "";
+            document.getElementById("hero-title").textContent = data.hero.title || "";
+            document.getElementById("hero-subtitle").textContent = data.hero.subtitle || "";
+            document.getElementById("hero-cta").textContent = data.hero.cta || "查看課程內容";
+          }
+
+          // 渲染特色卡片
+          if (data.featuresTitle) {
+            document.getElementById("features-title").textContent = data.featuresTitle;
+          }
+          const featuresGrid = document.getElementById("features-grid");
+          if (Array.isArray(data.features) && data.features.length > 0) {
+            featuresGrid.innerHTML = "";
+            data.features.forEach((item) => {
+              const card = document.createElement("article");
+              card.className = "feature-card";
+
+              const imgWrapper = document.createElement("div");
+              imgWrapper.className = "feature-img-wrapper";
+
+              const img = document.createElement("img");
+              img.src = item.imageUrl || "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80";
+              img.alt = item.imageAlt || item.title || "特色圖片";
+              img.loading = "lazy";
+              imgWrapper.appendChild(img);
+
+              const content = document.createElement("div");
+              content.className = "feature-content";
+
+              const title = document.createElement("h3");
+              title.className = "feature-title";
+              title.textContent = item.title;
+
+              const desc = document.createElement("p");
+              desc.className = "feature-desc";
+              desc.textContent = item.description;
+
+              content.appendChild(title);
+              content.appendChild(desc);
+
+              card.appendChild(imgWrapper);
+              card.appendChild(content);
+              featuresGrid.appendChild(card);
+            });
+          }
+
+          // 渲染 FAQ
+          if (data.faqTitle) {
+            document.getElementById("faq-title").textContent = data.faqTitle;
+          }
+          const faqList = document.getElementById("faq-list");
+          if (Array.isArray(data.faq) && data.faq.length > 0) {
+            faqList.innerHTML = "";
+            data.faq.forEach((item, index) => {
+              const details = document.createElement("details");
+              details.className = "faq-item";
+              if (index === 0) {
+                details.open = true;
+              }
+
+              const summary = document.createElement("summary");
+              summary.className = "faq-question-btn";
+              summary.innerHTML = `
+                <div class="faq-question-text">
+                  <span class="faq-badge">Q.</span>
+                  <span>${item.question}</span>
+                </div>
+                <svg class="faq-chevron" viewBox="0 0 24 24">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              `;
+
+              const answerBox = document.createElement("div");
+              answerBox.className = "faq-answer-box";
+              answerBox.textContent = item.answer;
+
+              details.appendChild(summary);
+              details.appendChild(answerBox);
+              faqList.appendChild(details);
+            });
+          }
+
+          // 渲染聯絡區塊
+          if (data.contact) {
+            document.getElementById("contact-title").textContent = data.contact.title || "聯絡我們";
+            document.getElementById("contact-desc").textContent = data.contact.description || "";
+          }
+
+          // 渲染頁尾
+          if (data.footer) {
+            document.getElementById("footer-text").textContent = data.footer;
+          }
+        })
+        .catch((error) => {
+          console.error("讀取 data/website-content.json 發生錯誤：", error);
+          const featuresGrid = document.getElementById("features-grid");
+          if (featuresGrid) {
+            featuresGrid.innerHTML = `
+              <p class="state-msg" style="color: #E53E3E; grid-column: 1 / -1;">
+                無法讀取資料檔（data/website-content.json）。<br />
+                請確認是否透過 VS Code Live Server 開啟網頁。
+              </p>
+            `;
+          }
+        });
+    });
+  </script>
+</body>
+</html>

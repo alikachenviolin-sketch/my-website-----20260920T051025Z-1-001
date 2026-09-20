@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>成果展示｜AI 輔助品牌網站與使用者體驗設計實戰班</title>
+  
+  <style>
+    /* 全域 CSS 變數：延續首頁的暖陽舒適色系與排版規格 */
+    :root {
+      --bg-warm: #FAF8F5;
+      --bg-card: #FFFFFF;
+      --primary: #D97736;
+      --primary-hover: #BF5E22;
+      --primary-light: #FDF2E9;
+      --text-main: #2D3748;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Noto Sans TC", sans-serif;
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 導覽列（與首頁樣式一致） */
+    header {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
+
+    /* 內頁標題區塊 */
+    .page-header {
+      padding: 70px 0 40px;
+      text-align: center;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    .page-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 14px;
+      color: #1E293B;
+    }
+
+    .page-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* 成果展示卡片區塊 */
+    .showcase-section {
+      padding: 40px 0 70px;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .showcase-card {
+      background-color: var(--bg-card);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .showcase-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .showcase-img-wrapper {
+      width: 100%;
+      height: 210px;
+      background-color: #EDF2F7;
+      overflow: hidden;
+    }
+
+    .showcase-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .showcase-content {
+      padding: 24px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .showcase-tag {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      background-color: var(--primary-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .showcase-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 10px;
+    }
+
+    .showcase-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .showcase-features {
+      border-top: 1px solid var(--border-color);
+      padding-top: 14px;
+      margin-top: auto;
+    }
+
+    .features-heading {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+
+    .features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .features-list li {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .features-list li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    /* 成果引導區塊 */
+    .cta-box {
+      margin-top: 56px;
+      background: linear-gradient(135deg, #FFFDFB 0%, #FDF4EB 100%);
+      border: 1px solid #FBD38D;
+      border-radius: 14px;
+      padding: 36px 32px;
+      text-align: center;
+    }
+
+    .cta-box-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #7B341E;
+      margin-bottom: 10px;
+    }
+
+    .cta-box-desc {
+      font-size: 0.98rem;
+      color: #744210;
+      margin-bottom: 24px;
+      line-height: 1.6;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: #FFFFFF;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(217, 119, 54, 0.25);
+    }
+
+    .cta-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    /* 頁尾 */
+    footer {
+      background-color: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 28px 0;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 1.7rem;
+      }
+      .nav-links {
+        gap: 12px;
+      }
+      .nav-links a {
+        font-size: 0.85rem;
+      }
+      .showcase-img-wrapper {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 導覽列 -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">AI 網頁實戰班</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">網站首頁</a></li>
+          <li><a href="curriculum.html">課程大綱</a></li>
+          <li><a href="showcase.html" class="active">成果展示</a></li>
+          <li><a href="contact.html">預約諮詢</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 頁面標題區塊 -->
+    <section class="page-header">
+      <div class="container">
+        <span class="kicker">實作成果範例</span>
+        <h1 class="page-title">初學者能完成的展示型網站</h1>
+        <p class="page-subtitle">
+          不追求花俏複雜的特效，專注於資訊清楚呈現、版面舒適合適與手機端瀏覽體驗。以下是你在課程中能親手完成的專案型態。
+        </p>
+      </div>
+    </section>
+
+    <!-- 成果卡片展示清單 -->
+    <section class="showcase-section">
+      <div class="container">
+        <div class="showcase-grid">
+
+          <!-- 範例 1 -->
+          <article class="showcase-card">
+            <div class="showcase-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80" alt="簡約風格的品牌展示頁面" loading="lazy" />
+            </div>
+            <div class="showcase-content">
+              <span class="showcase-tag">個人品牌 / 接案者</span>
+              <h2 class="showcase-title">個人服務介紹與形象門面</h2>
+              <p class="showcase-desc">
+                專為創作者與獨立顧問打造的單頁展示站。清晰呈現專業經歷、核心服務內容與直接諮詢按鈕，打造俐落的第一印象。
+              </p>
+              <div class="showcase-features">
+                <div class="features-heading">實作技術重點</div>
+                <ul class="features-list">
+                  <li>語意化主視覺與清楚的行動呼籲（CTA）</li>
+                  <li>結構化服務卡片與自適應 RWD 佈局</li>
+                  <li>一鍵直通預設郵件軟體的諮詢機制</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- 範例 2 -->
+          <article class="showcase-card">
+            <div class="showcase-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="工作室與小型團隊產品介紹頁" loading="lazy" />
+            </div>
+            <div class="showcase-content">
+              <span class="showcase-tag">小型品牌 / 工作室</span>
+              <h2 class="showcase-title">特色產品與常見疑問專頁</h2>
+              <p class="showcase-desc">
+                適合文創商品、手作工作室或小型品牌。透過手風琴折疊 FAQ 解決顧客疑慮，並將產品文案抽離為獨立資料方便維護。
+              </p>
+              <div class="showcase-features">
+                <div class="features-heading">實作技術重點</div>
+                <ul class="features-list">
+                  <li>透過 JSON 檔案集中管理產品規格與說明</li>
+                  <li>原生 details 標籤的手風琴折疊問答</li>
+                  <li>在手機與電腦端均能流暢閱讀的圖片網格</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- 範例 3 -->
+          <article class="showcase-card">
+            <div class="showcase-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="數位課程與活動宣傳頁面" loading="lazy" />
+            </div>
+            <div class="showcase-content">
+              <span class="showcase-tag">活動宣傳 / 體驗課程</span>
+              <h2 class="showcase-title">活動單頁與預約說明頁</h2>
+              <p class="showcase-desc">
+                聚焦於活動亮點、場次時間與參與說明的活動介紹站。引導使用者依序瀏覽時間表，消除疑問並順利填寫預約意向。
+              </p>
+              <div class="showcase-features">
+                <div class="features-heading">實作技術重點</div>
+                <ul class="features-list">
+                  <li>符合使用者閱讀心理的滾動式視覺導引</li>
+                  <li>溫暖耐看的配色與統一的按鈕交互反饋</li>
+                  <li>由 Gemini 協同微調的版面留白與語法細節</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- 諮詢引導區塊 -->
+        <div class="cta-box">
+          <h2 class="cta-box-title">想為自己的品牌打造專屬展示頁面嗎？</h2>
+          <p class="cta-box-desc">
+            一步步看懂架構、學會用 AI 排除困難，完成一份自己真正能自由更新與維護的網站。
+          </p>
+          <a href="contact.html" class="cta-btn">立即預約諮詢</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 頁尾 -->
+  <footer>
+    <div class="container">
+      <p>© AI 輔助品牌網站與使用者體驗設計實戰班. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
